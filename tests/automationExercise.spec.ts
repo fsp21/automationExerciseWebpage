@@ -1,20 +1,23 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 
-test.describe('Sign Up and Login flow', async () => {
 
-  const email = faker.internet.email()
-  const firstName = faker.person.firstName()
-  const lastName = faker.person.lastName()
-  const fullName = firstName + ' ' + lastName
-  const password = faker.internet.password()
+test.describe('Sign Up and Login flow', () => {
 
-  test.beforeEach('Navigate to the page', async ({ page }) => {
+  let email = faker.internet.email();
+  let password = faker.internet.password();
+  let firstName = faker.person.firstName();
+  let lastName = faker.person.lastName();
+  let fullName = `${firstName} ${lastName}`
+
+  test.describe.configure({ mode: 'serial' });
+
+  test.beforeEach('Navigate', async ({ page }) => {
     await page.goto('https://automationexercise.com');
   
     // Expect a title "to contain" a substring.
     await expect(page).toHaveTitle('Automation Exercise');
-  });
+  })
   
 test('Signup Flow', async ({ page })  => {
 
