@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 
 
-test.describe('Sign Up and Login flow', () => {
+test.describe('Sign Up, Login and Delete Account flow', () => {
 
   let email = faker.internet.email();
   let password = faker.internet.password();
@@ -79,4 +79,22 @@ test('Delete Account Flow', async ({ page }) => {
 
 })
 
+})
+
+test.describe('Logged Off Product Page flow', () => {
+
+  test.beforeEach('Navigate to Product Page', async ({ page }) => {
+    await page.goto('https://automationexercise.com');
+    await expect(page).toHaveTitle('Automation Exercise');
+
+    await page.locator('.container').getByText('Products').click();
+    expect(page.url()).toEqual('https://automationexercise.com/products')
+  })
+
+  test('Check if the first item from Brands list is visible', async ({ page }) => {
+
+    const listOfBrands = await page.locator('.brands_products').getByRole('listitem').all();
+    await expect(listOfBrands[0]).toBeVisible();
+  })
+  
 })
