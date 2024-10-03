@@ -75,7 +75,7 @@ test('Delete Account Flow', async ({ page }) => {
   // Delete account
   await expect(page.getByText('Delete Account')).toBeVisible();
   await page.getByText('Delete Account').click();
-  await expect(page.getByText('Your account has been permanently deleted!')).toBeVisible();
+  await expect(page.getByText('Your account has been permanently deleted1!')).toBeVisible();
 
 })
 
@@ -88,13 +88,14 @@ test.describe('Logged Off Product Page flow', () => {
     await expect(page).toHaveTitle('Automation Exercise');
 
     await page.locator('.container').getByText('Products').click();
-    expect(page.url()).toEqual('https://automationexercise.com/products')
+    expect(page.url()).toEqual('https://automationexercise.com/products');
   })
 
   test('Check if the first item from Brands list is visible', async ({ page }) => {
 
     const listOfBrands = await page.locator('.brands_products').getByRole('listitem').all();
     await expect(listOfBrands[0]).toBeVisible();
+
   })
   
 })
