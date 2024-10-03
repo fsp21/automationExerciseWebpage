@@ -75,7 +75,7 @@ test('Delete Account Flow', async ({ page }) => {
   // Delete account
   await expect(page.getByText('Delete Account')).toBeVisible();
   await page.getByText('Delete Account').click();
-  await expect(page.getByText('Your account has been permanently deleted1!')).toBeVisible();
+  await expect(page.getByText('Your account has been permanently deleted!')).toBeVisible();
 
 })
 
