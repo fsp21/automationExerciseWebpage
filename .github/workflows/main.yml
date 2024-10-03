@@ -17,13 +17,13 @@ jobs:
     steps:
     # Checkout the code from the repository
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
  
     # Set up Node.js environment
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '20'
+        node-version: 'lts/*'
 
     # Install dependencies
     - name: Install dependencies
