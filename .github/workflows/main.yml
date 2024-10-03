@@ -1,13 +1,17 @@
 name: Playwright Tests
 
-# Trigger the workflow on any push to the repository
-on: 
+on:
   push:
     branches:
       - main  # Change to the branch you want to trigger on
   workflow_dispatch:
+
 jobs:
-  signup_flow:
+  playwright-tests:
+    strategy:
+      matrix:
+        test_flow: [signUpFlow, loginFlow, deleteAccountFlow, navigateToPdpLoggedOut]
+
     runs-on: ubuntu-latest
 
     steps:
@@ -29,81 +33,6 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
 
-    # Run Playwright tests
+    # Run Playwright tests based on the matrix value
     - name: Run Playwright Tests
-      run: npx playwright test deleteAccountFlow.spec.ts
-  login_flow:
-    runs-on: ubuntu-latest
-
-    steps:
-    # Checkout the code from the repository
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    # Set up Node.js environment
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-
-    # Install dependencies
-    - name: Install dependencies
-      run: npm ci
-
-    # Install Playwright and necessary browsers
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-
-    # Run Playwright tests
-    - name: Run Playwright Tests
-      run: npx playwright test loginFlow.spec.ts
-  delete_account_flow:
-    runs-on: ubuntu-latest
-
-    steps:
-    # Checkout the code from the repository
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    # Set up Node.js environment
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-
-    # Install dependencies
-    - name: Install dependencies
-      run: npm ci
-
-    # Install Playwright and necessary browsers
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-
-    # Run Playwright tests
-    - name: Run Playwright Tests
-      run: npx playwright test deleteAccountFlow.spec.ts
-  navigate_to_pdp_loggedout_flow:
-    runs-on: ubuntu-latest
-
-    steps:
-    # Checkout the code from the repository
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    # Set up Node.js environment
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-
-    # Install dependencies
-    - name: Install dependencies
-      run: npm ci
-
-    # Install Playwright and necessary browsers
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-
-    # Run Playwright tests
-    - name: Run Playwright Tests
-      run: npx playwright test navigateToPdpLoggedOut.spec.ts
+      run: npx playwright test ${{ matrix.test_flow }}.spec.ts
